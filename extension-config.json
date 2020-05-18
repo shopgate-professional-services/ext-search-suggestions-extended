@@ -1,7 +1,29 @@
 {
   "version": "1.0.0",
   "id": "@shopgate-project/search-suggestions-extended",
-  "configuration": {},
-  "components": [],
-  "steps": []
+  "configuration": { },
+  "components": [
+    {
+      "id": "SearchSuggestions",
+      "type": "portals",
+      "target": [ "search.suggestions", "persistent-search-bar.search.suggestions" ],
+      "path": "frontend/portals/SearchSuggestions"
+    },
+    {
+      "id": "reducers",
+      "path": "frontend/search/reducers.js",
+      "type": "reducers"
+    },
+    {
+      "id": "SubscribersSearch",
+      "path": "frontend/search/subscriptions.js",
+      "type": "subscribers"
+    },
+    {
+      "type": "translations",
+      "path": "frontend/locale/de-DE.json",
+      "id": "locale/de-DE"
+    }
+  ],
+  "steps": [ ]
 }
