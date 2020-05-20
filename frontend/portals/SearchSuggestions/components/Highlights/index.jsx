@@ -3,7 +3,7 @@ import { css } from 'glamor';
 import { themeConfig } from '@shopgate/engage';
 import { I18n, Link } from '@shopgate/engage/components';
 import { SEARCH_PATH } from '@shopgate/engage/search';
-import { ResultContext } from '../../context';
+import { ResultContext } from '../Provider/context';
 
 const styles = {
   wrapper: css({

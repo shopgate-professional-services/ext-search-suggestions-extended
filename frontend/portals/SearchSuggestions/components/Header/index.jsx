@@ -4,7 +4,7 @@ import { themeConfig } from '@shopgate/engage';
 import {
   Button, Grid, I18n, PlaceholderParagraph,
 } from '@shopgate/engage/components';
-import { ResultContext } from '../../context';
+import { ResultContext } from '../Provider/context';
 import Highlights from '../Highlights';
 
 const styles = {
@@ -13,7 +13,7 @@ const styles = {
     paddingTop: themeConfig.variables.gap.small,
     background: themeConfig.colors.background,
     position: 'sticky',
-    top: 0,
+    top: '-2px', // Remove gap for content scrolling
     zIndex: 4,
   }).toString(),
   header: css({

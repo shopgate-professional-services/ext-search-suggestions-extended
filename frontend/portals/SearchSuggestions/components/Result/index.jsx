@@ -3,7 +3,7 @@ import { css } from 'glamor';
 import { getCurrentRouteHelper, useTheme, RouteContext } from '@shopgate/engage/core';
 import { ViewContext } from '@shopgate/engage/components/View';
 import { themeConfig } from '@shopgate/pwa-common/helpers/config';
-import { ResultContext } from '../../context';
+import { ResultContext } from '../Provider/context';
 
 const styles = {
   products: css({

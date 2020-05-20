@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import { ITEMS_PER_LOAD } from '@shopgate/engage/core';
-import { getProductsResult, fetchProducts } from '@shopgate/engage/product';
+import { fetchProducts, getProductsResult } from '@shopgate/engage/product';
 import { getSuggestions, getSuggestionsFetchingState } from '@shopgate/engage/search';
-import { filterSearch } from '../../search/action-creators';
+import { ITEMS_PER_LOAD } from '@shopgate/pwa-common/constants/DisplayOptions';
+import { filterSearch } from '../../../../search/action-creators';
 
 /**
  * @param {Object} state .
