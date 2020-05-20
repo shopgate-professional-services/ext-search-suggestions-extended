@@ -7,7 +7,6 @@ export const ResultContext = createContext({
   products: null,
   suggestions: null,
   hash: null,
-  isFetching: false,
   getProducts: () => {},
   filterSearch: () => {},
 });

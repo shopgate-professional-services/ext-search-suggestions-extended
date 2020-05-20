@@ -26,13 +26,11 @@ const styles = {
  * @returns {JSX}
  */
 const SearchSuggestionsHeader = () => {
-  const {
-    totalProductCount, isFetching, filterSearch, searchPhrase,
-  } = useContext(ResultContext);
+  const { totalProductCount, filterSearch, searchPhrase } = useContext(ResultContext);
 
   return (
     <div className={styles.wrapper}>
-      <PlaceholderParagraph ready={!isFetching}>
+      <PlaceholderParagraph ready={totalProductCount !== null}>
         <Grid className={styles.header}>
           <Grid.Item grow={1}>
             <I18n.Text string="sp.sse.search.resultCount" params={{ count: totalProductCount || 0 }} />

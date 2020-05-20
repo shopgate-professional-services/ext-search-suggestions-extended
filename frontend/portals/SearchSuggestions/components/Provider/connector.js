@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
+import { ITEMS_PER_LOAD } from '@shopgate/engage/core';
 import { fetchProducts, getProductsResult } from '@shopgate/engage/product';
-import { getSuggestions, getSuggestionsFetchingState } from '@shopgate/engage/search';
-import { ITEMS_PER_LOAD } from '@shopgate/pwa-common/constants/DisplayOptions';
+import { getSuggestions } from '@shopgate/engage/search';
 import { filterSearch } from '../../../../search/action-creators';
 
 /**
@@ -20,7 +20,6 @@ const mapStateToProps = (state, { searchPhrase }) => {
   return {
     ...getProductsResult(state, hashParams),
     suggestions: getSuggestions(state, { searchPhrase }),
-    isFetching: getSuggestionsFetchingState(state, { searchPhrase }),
   };
 };
 

@@ -9,7 +9,7 @@ import connect from './connector';
  */
 const SearchSuggestionsProvider = ({
   contentRef, children, getProducts, searchPhrase, hash, filterSearch,
-  totalProductCount, products, suggestions, isFetching,
+  totalProductCount, products, suggestions,
 }) => {
   useEffect(() => {
     getProducts(searchPhrase);
@@ -23,9 +23,13 @@ const SearchSuggestionsProvider = ({
     contentRef,
     searchPhrase,
     suggestions,
-    isFetching,
     // Safety check if actual products are given
-    totalProductCount: products.length ? totalProductCount : 0,
+    // eslint-disable-next-line no-nested-ternary
+    totalProductCount: totalProductCount
+      ? products.length
+        ? totalProductCount
+        : 0
+      : totalProductCount,
     products,
     hash,
     getProducts: offset => getProducts(searchPhrase, offset),
@@ -38,7 +42,6 @@ const SearchSuggestionsProvider = ({
     hash,
     contentRef,
     suggestions,
-    isFetching,
     filterSearch,
   ]);
 
@@ -55,7 +58,6 @@ SearchSuggestionsProvider.propTypes = {
   filterSearch: PropTypes.func.isRequired,
   getProducts: PropTypes.func.isRequired,
   hash: PropTypes.string,
-  isFetching: PropTypes.bool,
   products: PropTypes.arrayOf(PropTypes.shape()),
   searchPhrase: PropTypes.string,
   suggestions: PropTypes.arrayOf(PropTypes.string),
@@ -64,7 +66,6 @@ SearchSuggestionsProvider.propTypes = {
 
 SearchSuggestionsProvider.defaultProps = {
   hash: null,
-  isFetching: false,
   products: null,
   searchPhrase: null,
   suggestions: null,

@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { css } from 'glamor';
-import { getCurrentRouteHelper, useTheme, RouteContext } from '@shopgate/engage/core';
+import {
+  getCurrentRouteHelper, useTheme, RouteContext, ITEMS_PER_LOAD,
+} from '@shopgate/engage/core';
 import { ViewContext } from '@shopgate/engage/components/View';
 import { themeConfig } from '@shopgate/pwa-common/helpers/config';
 import { ResultContext } from '../Provider/context';
@@ -36,6 +38,7 @@ const SearchSuggestionsResult = () => {
                 products={products}
                 totalProductCount={totalProductCount}
                 requestHash={hash}
+                infiniteLoad={totalProductCount && totalProductCount > ITEMS_PER_LOAD}
               />
             </RouteContext.Provider>
           </ViewContext.Provider>
