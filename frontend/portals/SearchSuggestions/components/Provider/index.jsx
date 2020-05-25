@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { ITEMS_PER_LOAD } from '@shopgate/engage/core';
 import { ResultContext } from './context';
 import { withSearchPhrase } from '../../../../search/hocs';
 import connect from './connector';
@@ -19,22 +20,28 @@ const SearchSuggestionsProvider = ({
     }
   }, [contentRef, getProducts, searchPhrase]);
 
-  const context = useMemo(() => ({
-    contentRef,
-    searchPhrase,
-    suggestions,
-    // Safety check if actual products are given
-    // eslint-disable-next-line no-nested-ternary
-    totalProductCount: totalProductCount
-      ? products.length
-        ? totalProductCount
-        : 0
-      : totalProductCount,
-    products,
-    hash,
-    getProducts: offset => getProducts(searchPhrase, offset),
-    filterSearch,
-  }), [
+  const context = useMemo(() => {
+    let productCount = totalProductCount;
+    // Total is given, but actually no products
+    if (totalProductCount && !products.length) {
+      productCount = 0;
+    }
+    // Total is much more then actual products. Stop abnormal suggesting
+    if (totalProductCount > ITEMS_PER_LOAD && products.length < (ITEMS_PER_LOAD / 2)) {
+      productCount = products.length;
+    }
+
+    return {
+      contentRef,
+      searchPhrase,
+      suggestions,
+      totalProductCount: productCount,
+      products,
+      hash,
+      getProducts: offset => getProducts(searchPhrase, offset),
+      filterSearch,
+    };
+  }, [
     searchPhrase,
     getProducts,
     totalProductCount,
