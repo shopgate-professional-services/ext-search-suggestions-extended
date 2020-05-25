@@ -14,11 +14,14 @@ const SearchSuggestionsProvider = ({
 }) => {
   useEffect(() => {
     getProducts(searchPhrase);
+  }, [getProducts, searchPhrase]);
+
+  useEffect(() => {
     if (contentRef.current) {
       // eslint-disable-next-line no-param-reassign
       contentRef.current.scrollTop = 0;
     }
-  }, [contentRef, getProducts, searchPhrase]);
+  }, [contentRef, searchPhrase]);
 
   const context = useMemo(() => {
     let productCount = totalProductCount;
@@ -38,7 +41,7 @@ const SearchSuggestionsProvider = ({
       totalProductCount: productCount,
       products,
       hash,
-      getProducts: offset => getProducts(searchPhrase, offset),
+      getProducts: () => getProducts(searchPhrase, products.length),
       filterSearch,
     };
   }, [

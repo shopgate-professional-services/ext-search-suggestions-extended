@@ -38,7 +38,7 @@ const SearchSuggestionsResult = () => {
                 products={products}
                 totalProductCount={totalProductCount}
                 requestHash={hash}
-                infiniteLoad={totalProductCount && totalProductCount > ITEMS_PER_LOAD}
+                infiniteLoad={totalProductCount ? totalProductCount > ITEMS_PER_LOAD : true}
               />
             </RouteContext.Provider>
           </ViewContext.Provider>
