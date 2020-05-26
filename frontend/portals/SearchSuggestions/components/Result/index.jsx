@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import { css } from 'glamor';
 import {
-  getCurrentRouteHelper, useTheme, RouteContext, ITEMS_PER_LOAD,
+  getCurrentRouteHelper, useTheme, RouteContext, ITEMS_PER_LOAD, UIEvents,
 } from '@shopgate/engage/core';
 import { ViewContext } from '@shopgate/engage/components/View';
 import { themeConfig } from '@shopgate/pwa-common/helpers/config';
@@ -22,8 +22,13 @@ const SearchSuggestionsResult = () => {
     totalProductCount, products, hash, contentRef, getProducts,
   } = useContext(ResultContext);
 
+  const productClick = useCallback(() => {
+    // Default GMD theme search bar toggle
+    UIEvents.emit('TOGGLE_SEARCH', false);
+  }, []);
+
   return (
-    <div className={styles.products}>
+    <div aria-hidden className={styles.products} onClick={productClick}>
       <ViewContext.Consumer>
         {viewContext => (
           <ViewContext.Provider

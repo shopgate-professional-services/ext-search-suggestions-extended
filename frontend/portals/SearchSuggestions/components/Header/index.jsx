@@ -6,6 +6,9 @@ import {
 } from '@shopgate/engage/components';
 import { ResultContext } from '../Provider/context';
 import Highlights from '../Highlights';
+import { layout } from '../../../../config';
+
+const { showResultCount = true, showFilterButton = true } = layout || {};
 
 const styles = {
   wrapper: css({
@@ -17,7 +20,6 @@ const styles = {
     zIndex: 4,
   }).toString(),
   header: css({
-    textTransform: 'uppercase',
     fontWeight: 500,
   }).toString(),
 };
@@ -28,18 +30,26 @@ const styles = {
 const SearchSuggestionsHeader = () => {
   const { totalProductCount, filterSearch, searchPhrase } = useContext(ResultContext);
 
+  if (!showFilterButton && !showResultCount) {
+    return null;
+  }
+
   return (
     <div className={styles.wrapper}>
       <PlaceholderParagraph ready={totalProductCount !== null}>
         <Grid className={styles.header}>
           <Grid.Item grow={1}>
-            <I18n.Text string="sp.sse.search.resultCount" params={{ count: totalProductCount || 0 }} />
+            {showResultCount && (
+              <I18n.Text string="sp.sse.search.resultCount" params={{ count: totalProductCount || 0 }} />
+            )}
           </Grid.Item>
           {searchPhrase && searchPhrase.length >= 3 && (
             <Grid.Item grow={0}>
-              <Button onClick={filterSearch} type="plain">
-                <I18n.Text string="titles.filter" />
-              </Button>
+              {showFilterButton && (
+                <Button onClick={filterSearch} type="plain">
+                  <I18n.Text string="titles.filter" />
+                </Button>
+              )}
             </Grid.Item>
           )}
         </Grid>

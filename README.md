@@ -4,6 +4,25 @@ This extension extends default search suggestion functionality with extended pro
 
 ## Configuration
 
+Set the following value in your Shopgate Connect Admin:
+
+* layout - (json) layout settings (default: see Default value)
+    * showResultCount - (boolean) Show result counter (default: true)
+    * showFilterButton - (boolean) Show filter button (default: true)
+    * showHighlights - (boolean) Show highlights (suggestions) (default: true)
+
+## Default value
+```
+{
+  "layout": {
+    "showResultCount": true,
+    "showFilterButton": true,
+    "showHighlights": true
+  }
+}
+```
+
+
 ## About Shopgate
 
 Shopgate is the leading mobile commerce platform.
