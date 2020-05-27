@@ -4,9 +4,6 @@ import { themeConfig } from '@shopgate/engage';
 import { I18n, Link, Grid } from '@shopgate/engage/components';
 import { SEARCH_PATH } from '@shopgate/engage/search';
 import { ResultContext } from '../Provider/context';
-import { layout } from '../../../../config';
-
-const { showHighlights = true } = layout || {};
 
 const styles = {
   grid: css({
@@ -33,7 +30,7 @@ const styles = {
 const SearchSuggestionsHighlights = () => {
   const { suggestions, searchPhrase } = useContext(ResultContext);
 
-  if (!showHighlights || !suggestions || !suggestions.length) {
+  if (!suggestions || !suggestions.length) {
     return null;
   }
 

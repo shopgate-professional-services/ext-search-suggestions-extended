@@ -8,7 +8,11 @@ import { ResultContext } from '../Provider/context';
 import Highlights from '../Highlights';
 import { layout } from '../../../../config';
 
-const { showResultCount = true, showFilterButton = true } = layout || {};
+const {
+  showResultCount = true,
+  showFilterButton = true,
+  showHighlights = true,
+} = layout || {};
 
 const styles = {
   wrapper: css({
@@ -30,30 +34,32 @@ const styles = {
 const SearchSuggestionsHeader = () => {
   const { totalProductCount, filterSearch, searchPhrase } = useContext(ResultContext);
 
-  if (!showFilterButton && !showResultCount) {
+  if (!showFilterButton && !showResultCount && !showHighlights) {
     return null;
   }
 
   return (
     <div className={styles.wrapper}>
       <PlaceholderParagraph ready={totalProductCount !== null}>
-        <Grid className={styles.header}>
-          <Grid.Item grow={1}>
-            {showResultCount && (
-              <I18n.Text string="sp.sse.search.resultCount" params={{ count: totalProductCount || 0 }} />
-            )}
-          </Grid.Item>
-          {searchPhrase && searchPhrase.length >= 3 && (
-            <Grid.Item grow={0}>
-              {showFilterButton && (
-                <Button onClick={filterSearch} type="plain">
-                  <I18n.Text string="titles.filter" />
-                </Button>
+        {(showResultCount || showFilterButton) && (
+          <Grid className={styles.header}>
+            <Grid.Item grow={1}>
+              {showResultCount && (
+                <I18n.Text string="sp.sse.search.resultCount" params={{ count: totalProductCount || 0 }} />
               )}
             </Grid.Item>
-          )}
-        </Grid>
-        <Highlights />
+            {searchPhrase && searchPhrase.length >= 3 && (
+              <Grid.Item grow={0}>
+                {showFilterButton && (
+                  <Button onClick={filterSearch} type="plain">
+                    <I18n.Text string="titles.filter" />
+                  </Button>
+                )}
+              </Grid.Item>
+            )}
+          </Grid>
+        )}
+        {showHighlights && <Highlights />}
       </PlaceholderParagraph>
     </div>
   );
