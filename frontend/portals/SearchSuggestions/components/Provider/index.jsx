@@ -41,7 +41,7 @@ const SearchSuggestionsProvider = ({
       products,
       hash,
       getProducts: () => getProducts(searchPhrase, products.length),
-      filterSearch,
+      filterSearch: () => filterSearch(searchPhrase),
     };
   }, [
     searchPhrase,

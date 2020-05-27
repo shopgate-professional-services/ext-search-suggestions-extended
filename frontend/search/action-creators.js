@@ -10,8 +10,10 @@ export const fetchSearchSuggestions = searchPhrase => ({
 });
 
 /**
+ * @param {string} searchPhrase .
  * @return {Object}
  */
-export const filterSearch = () => ({
+export const filterSearch = searchPhrase => ({
   type: FILTER_SEARCH,
+  searchPhrase,
 });
