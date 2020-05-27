@@ -2,15 +2,14 @@ import React, { memo, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ITEMS_PER_LOAD } from '@shopgate/engage/core';
 import { ResultContext } from './context';
-import { withSearchPhrase } from '../../../../search/hocs';
 import connect from './connector';
 
 /**
  * @returns {JSX}
  */
 const SearchSuggestionsProvider = ({
-  contentRef, children, getProducts, searchPhrase, hash, filterSearch,
-  totalProductCount, products, suggestions,
+  contentRef, searchPhrase, children,
+  getProducts, hash, filterSearch, totalProductCount, products, suggestions,
 }) => {
   useEffect(() => {
     getProducts(searchPhrase);
@@ -85,17 +84,15 @@ SearchSuggestionsProvider.defaultProps = {
 /**
  * Only re-render on initial and sequential search phrases
  */
-export default withSearchPhrase(
-  memo(
-    connect(SearchSuggestionsProvider),
-    ({ searchPhrase: prevSearchPhrase }, { searchPhrase }) => {
-      if (prevSearchPhrase === searchPhrase) {
-        return true;
-      }
-      if (!searchPhrase) {
-        return false;
-      }
-      return !!(searchPhrase && searchPhrase.length < 3);
+export default memo(
+  connect(SearchSuggestionsProvider),
+  ({ searchPhrase: prevSearchPhrase }, { searchPhrase }) => {
+    if (prevSearchPhrase === searchPhrase) {
+      return true;
     }
-  )
+    if (!searchPhrase) {
+      return false;
+    }
+    return !!(searchPhrase && searchPhrase.length < 3);
+  }
 );

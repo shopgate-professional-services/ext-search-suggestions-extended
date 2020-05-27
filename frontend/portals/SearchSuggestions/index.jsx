@@ -1,10 +1,13 @@
-import React, { useRef, memo } from 'react';
+import React, {
+  useRef, memo, useEffect, useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'glamor';
 import { useRoute } from '@shopgate/engage/core';
 import { SEARCH_SUGGESTIONS } from '@shopgate/engage/search';
 import { themeConfig, themeName } from '@shopgate/pwa-common/helpers/config';
 import SearchSuggestionsProvider from './components/Provider';
+import { withSearchPhrase } from '../../search/hocs';
 import Header from './components/Header';
 import Result from './components/Result';
 
@@ -16,7 +19,8 @@ const baseStyle = {
   overflowY: 'scroll',
   zIndex: 3,
   background: themeConfig.colors.light,
-  bottom: 'calc(var(--safe-area-inset-bottom) + var(--footer-height))',
+  color: themeConfig.colors.dark,
+  bottom: 'var(--footer-height)',
 };
 
 /** Styles for different portals */
@@ -36,16 +40,24 @@ const styles = {
 /**
  * @returns {JSX}
  */
-const SearchSuggestions = ({ name }) => {
+const SearchSuggestions = ({ name, searchPhrase }) => {
   const { pattern } = useRoute() || {};
   const contentRef = useRef(null);
+  const [statePhrase, setStatePhrase] = useState(searchPhrase);
+
+  // Hook into fetching suggestion to grab a search phrase
+  useEffect(() => { setStatePhrase(searchPhrase); }, [searchPhrase]);
+
+  if (!statePhrase) {
+    return null;
+  }
 
   return (
     <div
       className={css(styles[name], pattern === '/browse' ? styles.browse : null)}
       ref={contentRef}
     >
-      <SearchSuggestionsProvider contentRef={contentRef}>
+      <SearchSuggestionsProvider contentRef={contentRef} searchPhrase={statePhrase}>
         <Header />
         <Result />
       </SearchSuggestionsProvider>
@@ -55,7 +67,12 @@ const SearchSuggestions = ({ name }) => {
 
 SearchSuggestions.propTypes = {
   name: PropTypes.string.isRequired,
+  searchPhrase: PropTypes.string,
+};
+
+SearchSuggestions.defaultProps = {
+  searchPhrase: '',
 };
 
 // Do not re-render due to changed portal props
-export default memo(SearchSuggestions, () => true);
+export default memo(withSearchPhrase(SearchSuggestions));

@@ -37,7 +37,7 @@ const mapDispatchToProps = dispatch => ({
       limit: ITEMS_PER_LOAD,
     },
   })),
-  filterSearch: () => dispatch(filterSearch()),
+  filterSearch: searchPhrase => dispatch(filterSearch(searchPhrase)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps);

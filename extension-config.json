@@ -1,7 +1,21 @@
 {
   "version": "1.0.0-rc.1",
   "id": "@shopgate-project/search-suggestions-extended",
-  "configuration": { },
+  "configuration": {
+    "layout": {
+      "type": "admin",
+      "destination": "frontend",
+      "default": {
+        "showResultCount": true,
+        "showFilterButton": true,
+        "showHighlights": true
+      },
+      "params": {
+        "type": "json" ,
+        "label": "Layout settings (show counter, filter button, etc)"
+      }
+    }
+  },
   "components": [
     {
       "id": "SearchSuggestions",
@@ -18,6 +32,11 @@
       "id": "SubscribersSearch",
       "path": "frontend/search/subscriptions.js",
       "type": "subscribers"
+    },
+    {
+      "type": "translations",
+      "path": "frontend/locale/en-US.json",
+      "id": "locale/en-US"
     },
     {
       "type": "translations",
