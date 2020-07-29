@@ -68,10 +68,12 @@ const SearchSuggestions = ({ name, searchPhrase, visible }) => {
 SearchSuggestions.propTypes = {
   name: PropTypes.string.isRequired,
   searchPhrase: PropTypes.string,
+  visible: PropTypes.bool,
 };
 
 SearchSuggestions.defaultProps = {
   searchPhrase: '',
+  visible: true,
 };
 
 // Do not re-render due to changed portal props
