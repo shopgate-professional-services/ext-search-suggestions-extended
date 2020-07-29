@@ -40,7 +40,7 @@ const styles = {
 /**
  * @returns {JSX}
  */
-const SearchSuggestions = ({ name, searchPhrase }) => {
+const SearchSuggestions = ({ name, searchPhrase, visible }) => {
   const { pattern } = useRoute() || {};
   const contentRef = useRef(null);
   const [statePhrase, setStatePhrase] = useState(searchPhrase);
@@ -48,7 +48,7 @@ const SearchSuggestions = ({ name, searchPhrase }) => {
   // Hook into fetching suggestion to grab a search phrase
   useEffect(() => { setStatePhrase(searchPhrase); }, [searchPhrase]);
 
-  if (!statePhrase) {
+  if (statePhrase.length <= 2 || !visible) {
     return null;
   }
 
