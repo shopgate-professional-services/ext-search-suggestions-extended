@@ -40,7 +40,7 @@ const styles = {
 /**
  * @returns {JSX}
  */
-const SearchSuggestions = ({ name, searchPhrase }) => {
+const SearchSuggestions = ({ name, searchPhrase, visible }) => {
   const { pattern } = useRoute() || {};
   const contentRef = useRef(null);
   const [statePhrase, setStatePhrase] = useState(searchPhrase);
@@ -48,7 +48,7 @@ const SearchSuggestions = ({ name, searchPhrase }) => {
   // Hook into fetching suggestion to grab a search phrase
   useEffect(() => { setStatePhrase(searchPhrase); }, [searchPhrase]);
 
-  if (!statePhrase) {
+  if (!visible || !statePhrase || statePhrase.length <= 2) {
     return null;
   }
 
@@ -68,10 +68,12 @@ const SearchSuggestions = ({ name, searchPhrase }) => {
 SearchSuggestions.propTypes = {
   name: PropTypes.string.isRequired,
   searchPhrase: PropTypes.string,
+  visible: PropTypes.bool,
 };
 
 SearchSuggestions.defaultProps = {
   searchPhrase: '',
+  visible: true,
 };
 
 // Do not re-render due to changed portal props
