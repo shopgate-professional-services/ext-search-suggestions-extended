@@ -48,7 +48,7 @@ const SearchSuggestions = ({ name, searchPhrase, visible }) => {
   // Hook into fetching suggestion to grab a search phrase
   useEffect(() => { setStatePhrase(searchPhrase); }, [searchPhrase]);
 
-  if (statePhrase.length <= 2 || !visible) {
+  if (!visible || !statePhrase || statePhrase.length <= 2) {
     return null;
   }
 
