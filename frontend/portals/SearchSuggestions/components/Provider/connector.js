@@ -1,25 +1,32 @@
 import { connect } from 'react-redux';
-import { ITEMS_PER_LOAD } from '@shopgate/engage/core';
-import { fetchProducts, getProductsResult } from '@shopgate/engage/product';
+import { fetchProducts, getProductsResult, getFulfillmentParams } from '@shopgate/engage/product';
+import { makeGetDefaultSortOrder, SORT_SCOPE_SEARCH } from '@shopgate/engage/filter';
 import { getSuggestions } from '@shopgate/engage/search';
 import { filterSearch } from '../../../../search/action-creators';
 
 /**
- * @param {Object} state .
- * @param {Object} props .
- * @return {Object}
+ * @return {Function}
  */
-const mapStateToProps = (state, { searchPhrase }) => {
-  const hashParams = {
-    searchPhrase: searchPhrase || ' ',
-    params: {
-      pipeline: 'shopgate.catalog.getProductsBySearchPhrase',
-    },
-  };
+const mapStateToProps = () => {
+  let getDefaultSortOrder = null;
+  if (makeGetDefaultSortOrder) {
+    // Engage version with merchant settings
+    getDefaultSortOrder = makeGetDefaultSortOrder();
+  }
 
-  return {
-    ...getProductsResult(state, hashParams),
-    suggestions: getSuggestions(state, { searchPhrase }),
+  return (state, { searchPhrase }) => {
+    const hashParams = {
+      searchPhrase: searchPhrase || ' ',
+      ...getDefaultSortOrder && { sort: getDefaultSortOrder(state, { scope: SORT_SCOPE_SEARCH }) },
+    };
+
+    const { searchPhrase: ignore, ...getProductsParams } = hashParams;
+
+    return {
+      ...getProductsResult(state, hashParams),
+      getProductsParams,
+      suggestions: getSuggestions(state, { searchPhrase }),
+    };
   };
 };
 
@@ -28,16 +35,9 @@ const mapStateToProps = (state, { searchPhrase }) => {
  * @param {Function} dispatch The redux dispatch function.
  * @return {Object} The extended component props.
  */
-const mapDispatchToProps = dispatch => ({
-  getProducts: (searchPhrase, offset = 0) => dispatch(fetchProducts({
-    pipeline: 'shopgate.catalog.getProductsBySearchPhrase',
-    params: {
-      searchPhrase,
-      offset,
-      limit: ITEMS_PER_LOAD,
-    },
-  })),
-  filterSearch: searchPhrase => dispatch(filterSearch(searchPhrase)),
-});
+const mapDispatchToProps = {
+  getProducts: fetchProducts,
+  filterSearch,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps);

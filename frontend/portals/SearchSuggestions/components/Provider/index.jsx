@@ -10,10 +10,16 @@ import connect from './connector';
 const SearchSuggestionsProvider = ({
   contentRef, searchPhrase, children,
   getProducts, hash, filterSearch, totalProductCount, products, suggestions,
+  getProductsParams,
 }) => {
   useEffect(() => {
-    getProducts(searchPhrase);
-  }, [getProducts, searchPhrase]);
+    getProducts({
+      params: {
+        searchPhrase,
+        ...getProductsParams,
+      },
+    });
+  }, [getProductsParams, getProducts, searchPhrase]);
 
   useEffect(() => {
     if (contentRef.current) {
@@ -40,10 +46,18 @@ const SearchSuggestionsProvider = ({
       totalProductCount: productCount,
       products,
       hash,
-      getProducts: () => getProducts(searchPhrase, products.length),
+      getProducts: () => getProducts({
+        params: {
+          searchPhrase,
+          offset: products.length,
+          limit: ITEMS_PER_LOAD,
+          ...getProductsParams,
+        },
+      }),
       filterSearch: () => filterSearch(searchPhrase),
     };
   }, [
+    getProductsParams,
     searchPhrase,
     getProducts,
     totalProductCount,
@@ -66,6 +80,7 @@ SearchSuggestionsProvider.propTypes = {
   contentRef: PropTypes.shape().isRequired,
   filterSearch: PropTypes.func.isRequired,
   getProducts: PropTypes.func.isRequired,
+  getProductsParams: PropTypes.shape(),
   hash: PropTypes.string,
   products: PropTypes.arrayOf(PropTypes.shape()),
   searchPhrase: PropTypes.string,
@@ -74,6 +89,7 @@ SearchSuggestionsProvider.propTypes = {
 };
 
 SearchSuggestionsProvider.defaultProps = {
+  getProductsParams: null,
   hash: null,
   products: null,
   searchPhrase: null,
