@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchProducts, getProductsResult, getFulfillmentParams } from '@shopgate/engage/product';
+import { fetchProducts, getProductsResult } from '@shopgate/engage/product';
 import { makeGetDefaultSortOrder, SORT_SCOPE_SEARCH } from '@shopgate/engage/filter';
 import { getSuggestions } from '@shopgate/engage/search';
 import { filterSearch } from '../../../../search/action-creators';
@@ -20,11 +20,11 @@ const mapStateToProps = () => {
       ...getDefaultSortOrder && { sort: getDefaultSortOrder(state, { scope: SORT_SCOPE_SEARCH }) },
     };
 
-    const { searchPhrase: ignore, ...getProductsParams } = hashParams;
+    const { sort } = hashParams;
 
     return {
       ...getProductsResult(state, hashParams),
-      getProductsParams,
+      sort,
       suggestions: getSuggestions(state, { searchPhrase }),
     };
   };
