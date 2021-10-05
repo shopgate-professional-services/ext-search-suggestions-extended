@@ -28,7 +28,9 @@ const SearchSuggestionsResult = () => {
   }, []);
 
   return (
-    <div aria-hidden className={styles.products} onClick={productClick}>
+    // eslint-disable-next-line max-len
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
+    <div className={styles.products} onClick={productClick}>
       <ViewContext.Consumer>
         {viewContext => (
           <ViewContext.Provider
