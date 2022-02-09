@@ -16,7 +16,7 @@ const SearchSuggestionsProvider = ({
     getProducts({
       params: {
         searchPhrase,
-        sort,
+        ...sort && { sort },
       },
     });
   }, [sort, getProducts, searchPhrase]);
@@ -51,7 +51,7 @@ const SearchSuggestionsProvider = ({
           searchPhrase,
           offset: products.length,
           limit: ITEMS_PER_LOAD,
-          sort,
+          ...sort && { sort },
         },
       }),
       filterSearch: () => filterSearch(searchPhrase),
