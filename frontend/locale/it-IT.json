@@ -1,0 +1,10 @@
+{
+  "sp": {
+    "sse": {
+      "search": {
+        "resultCount": "Risultati: {count}",
+        "highlights": "Suggerimenti di ricerca: "
+      }
+    }
+  }
+}
