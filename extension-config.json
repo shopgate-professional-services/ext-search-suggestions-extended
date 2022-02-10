@@ -42,6 +42,21 @@
       "type": "translations",
       "path": "frontend/locale/de-DE.json",
       "id": "locale/de-DE"
+    },
+    {
+      "type": "translations",
+      "path": "frontend/locale/fr-FR.json",
+      "id": "locale/fr-FR"
+    },
+    {
+      "type": "translations",
+      "path": "frontend/locale/es-ES.json",
+      "id": "locale/es-ES"
+    },
+    {
+      "type": "translations",
+      "path": "frontend/locale/it-IT.json",
+      "id": "locale/it-IT"
     }
   ],
   "steps": [ ]
