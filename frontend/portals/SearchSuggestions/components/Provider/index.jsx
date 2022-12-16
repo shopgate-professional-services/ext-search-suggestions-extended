@@ -10,7 +10,7 @@ import connect from './connector';
 const SearchSuggestionsProvider = ({
   contentRef, searchPhrase, children,
   getProducts, hash, filterSearch, totalProductCount, products, suggestions,
-  sort,
+  sort, filters,
 }) => {
   useEffect(() => {
     getProducts({
@@ -18,8 +18,9 @@ const SearchSuggestionsProvider = ({
         searchPhrase,
         ...sort && { sort },
       },
+      filters,
     });
-  }, [sort, getProducts, searchPhrase]);
+  }, [sort, filters, getProducts, searchPhrase]);
 
   useEffect(() => {
     if (contentRef.current) {
@@ -53,11 +54,13 @@ const SearchSuggestionsProvider = ({
           limit: ITEMS_PER_LOAD,
           ...sort && { sort },
         },
+        filters,
       }),
       filterSearch: () => filterSearch(searchPhrase),
     };
   }, [
     sort,
+    filters,
     searchPhrase,
     getProducts,
     totalProductCount,
@@ -80,6 +83,7 @@ SearchSuggestionsProvider.propTypes = {
   contentRef: PropTypes.shape().isRequired,
   filterSearch: PropTypes.func.isRequired,
   getProducts: PropTypes.func.isRequired,
+  filters: PropTypes.shape(),
   hash: PropTypes.string,
   products: PropTypes.arrayOf(PropTypes.shape()),
   searchPhrase: PropTypes.string,
@@ -90,6 +94,7 @@ SearchSuggestionsProvider.propTypes = {
 
 SearchSuggestionsProvider.defaultProps = {
   sort: null,
+  filters: {},
   hash: null,
   products: null,
   searchPhrase: null,
