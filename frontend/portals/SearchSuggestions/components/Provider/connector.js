@@ -28,7 +28,7 @@ const mapStateToProps = () => {
     };
 
     return {
-      productsResult: getProductsResult(state, hashParams),
+      ...getProductsResult(state, hashParams),
       sort,
       filters,
       suggestions: getSuggestions(state, { searchPhrase }),
