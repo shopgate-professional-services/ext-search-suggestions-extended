@@ -21,7 +21,7 @@ const styles = {
     background: themeConfig.colors.background,
     position: 'sticky',
     top: '-2px', // Remove gap for content scrolling
-    zIndex: 4,
+    zIndex: 6,
   }).toString(),
   header: css({
     fontWeight: 500,
