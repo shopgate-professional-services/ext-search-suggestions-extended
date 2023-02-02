@@ -17,8 +17,8 @@ const mapStateToProps = () => {
   }
 
   return (state, { searchPhrase = ' ' }) => {
-    const currentRoute = getCurrentRoute(state);
-    const { filters } = currentRoute.state;
+    const currentRoute = getCurrentRoute(state) || {};
+    const { filters } = currentRoute.state || {};
     const sort = getDefaultSortOrder && getDefaultSortOrder(state, { scope: SORT_SCOPE_SEARCH });
 
     const hashParams = {
