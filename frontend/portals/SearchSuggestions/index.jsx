@@ -25,8 +25,11 @@ const baseStyle = {
 
 /** Styles for different portals */
 const styles = {
-  [`persistent-search-bar.${SEARCH_SUGGESTIONS}`]: css(baseStyle, {
-    top: `calc(var(--safe-area-inset-top) + 56px + ${appBarHeight}px)`,
+  [`persistent-search-bar.${SEARCH_SUGGESTIONS}`]: css({
+    position: 'relative',
+    top: 0,
+    height: '100%',
+    overflowY: 'scroll',
   }),
   [SEARCH_SUGGESTIONS]: css(baseStyle, {
     top: `calc(var(--safe-area-inset-top) + ${appBarHeight}px)`,
