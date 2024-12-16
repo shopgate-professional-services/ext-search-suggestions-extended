@@ -4,12 +4,14 @@ import {
   getCurrentRouteHelper, useTheme, RouteContext, ITEMS_PER_LOAD, UIEvents,
 } from '@shopgate/engage/core';
 import { ViewContext } from '@shopgate/engage/components/View';
-import { themeConfig } from '@shopgate/pwa-common/helpers/config';
 import { ResultContext } from '../Provider/context';
 
 const styles = {
   products: css({
-    marginTop: themeConfig.variables.gap.small,
+    '&& [data-test-id="productGrid"]': {
+      marginTop: 0,
+      paddingTop: 16,
+    },
   }),
 };
 
