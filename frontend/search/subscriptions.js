@@ -23,9 +23,16 @@ export default (subscribe) => {
     const { searchPhrase } = action;
 
     // 1 time subscription
-    subscribe(routeDidEnter$.first().delay(250), () => {
+    subscribe(routeDidEnter$.first().delay(250), ({ action: innerAction }) => {
       dispatch(historyPush({
         pathname: `${SEARCH_FILTER_PATTERN}?s=${encodeURIComponent(searchPhrase)}`,
+        // Inject id of the search route as parentId into the filter route state. It's needed by
+        // the logic of the filter route to update the filters inside the search route.
+        ...innerAction?.route?.id && {
+          state: {
+            parentId: innerAction.route.id,
+          },
+        },
       }));
     });
 
