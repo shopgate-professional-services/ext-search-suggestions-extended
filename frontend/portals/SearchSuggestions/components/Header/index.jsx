@@ -29,7 +29,7 @@ const styles = {
 };
 
 /**
- * @returns {JSX}
+ * @returns {JSX.Element}
  */
 const SearchSuggestionsHeader = () => {
   const { totalProductCount, filterSearch, searchPhrase } = useContext(ResultContext);
@@ -39,7 +39,8 @@ const SearchSuggestionsHeader = () => {
   }
 
   return (
-    <div className={styles.wrapper}>
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+    <div className={styles.wrapper} tabIndex={0}>
       <PlaceholderParagraph ready={totalProductCount !== null}>
         {(showResultCount || showFilterButton) && (
           <Grid className={styles.header}>
