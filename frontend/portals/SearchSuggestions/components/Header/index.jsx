@@ -39,8 +39,7 @@ const SearchSuggestionsHeader = () => {
   }
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-    <div className={styles.wrapper} tabIndex={0}>
+    <div role="presentation" className={styles.wrapper} tabIndex={-1}>
       <PlaceholderParagraph ready={totalProductCount !== null}>
         {(showResultCount || showFilterButton) && (
           <Grid className={styles.header}>

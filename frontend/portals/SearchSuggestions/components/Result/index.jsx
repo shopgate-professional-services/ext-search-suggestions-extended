@@ -30,9 +30,7 @@ const SearchSuggestionsResult = () => {
   }, []);
 
   return (
-    // eslint-disable-next-line max-len
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-    <div className={styles.products} onClick={productClick} tabIndex={-1}>
+    <div role="presentation" className={styles.products} onClick={productClick} tabIndex={-1}>
       <ViewContext.Consumer>
         {viewContext => (
           <ViewContext.Provider

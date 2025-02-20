@@ -57,8 +57,8 @@ const SearchSuggestions = ({ name, searchPhrase, visible }) => {
 
   return (
     <div
-      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-      tabIndex={0}
+      role="presentation"
+      tabIndex={-1}
       className={css(styles[name], pattern === '/browse' ? styles.browse : null)}
       ref={contentRef}
     >
