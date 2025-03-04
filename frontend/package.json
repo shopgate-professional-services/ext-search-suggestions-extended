@@ -12,10 +12,5 @@
     "@shopgate/engage": "^6.11.0",
     "@shopgate/eslint-config": "^6.11.0",
     "eslint": "~5.12.0"
-  },
-  "peerDependencies": {
-    "@shopgate/engage": "^6.11.0",
-    "react": "~16.12.0",
-    "react-redux": "^5.1.2"
   }
 }
