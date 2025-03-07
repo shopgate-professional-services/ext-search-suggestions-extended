@@ -29,7 +29,7 @@ const styles = {
 };
 
 /**
- * @returns {JSX}
+ * @returns {JSX.Element}
  */
 const SearchSuggestionsHeader = () => {
   const { totalProductCount, filterSearch, searchPhrase } = useContext(ResultContext);
@@ -39,7 +39,7 @@ const SearchSuggestionsHeader = () => {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div role="presentation" className={styles.wrapper} tabIndex={-1}>
       <PlaceholderParagraph ready={totalProductCount !== null}>
         {(showResultCount || showFilterButton) && (
           <Grid className={styles.header}>

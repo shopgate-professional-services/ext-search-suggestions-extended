@@ -16,7 +16,7 @@ const styles = {
 };
 
 /**
- * @returns {JSX}
+ * @returns {JSX.Element}
  */
 const SearchSuggestionsResult = () => {
   const { ProductGrid } = useTheme();
@@ -30,9 +30,7 @@ const SearchSuggestionsResult = () => {
   }, []);
 
   return (
-    // eslint-disable-next-line max-len
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
-    <div className={styles.products} onClick={productClick}>
+    <div role="presentation" className={styles.products} onClick={productClick} tabIndex={-1}>
       <ViewContext.Consumer>
         {viewContext => (
           <ViewContext.Provider

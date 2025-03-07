@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.0] - 2025-02-19
+### Added
+- Improved accessibility for Android TalkBack and iOS VoiceOver. It is possible to navigate the search suggestions via screen reader.
+
 ## 1.4.0 - 2025-01-03
 ### Fixed
 

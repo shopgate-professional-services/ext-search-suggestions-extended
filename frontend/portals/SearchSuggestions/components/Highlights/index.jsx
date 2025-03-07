@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { css } from 'glamor';
 import { themeConfig } from '@shopgate/engage';
 import { I18n, Link, Grid } from '@shopgate/engage/components';
 import { SEARCH_PATH } from '@shopgate/engage/search';
+import { broadcastLiveMessage } from '@shopgate/engage/a11y';
 import { ResultContext } from '../Provider/context';
 
 const styles = {
@@ -25,10 +26,14 @@ const styles = {
 };
 
 /**
- * @returns {JSX}
+ * @returns {JSX.Element}
  */
 const SearchSuggestionsHighlights = () => {
-  const { suggestions, searchPhrase } = useContext(ResultContext);
+  const { suggestions, searchPhrase, totalProductCount } = useContext(ResultContext);
+
+  useEffect(() => {
+    broadcastLiveMessage('sp.sse.search.resultCount', { params: { count: totalProductCount } });
+  }, [totalProductCount]);
 
   if (!suggestions || !suggestions.length) {
     return null;
@@ -46,6 +51,7 @@ const SearchSuggestionsHighlights = () => {
             href={`${SEARCH_PATH}?s=${encodeURIComponent(suggestion)}`}
             tag="a"
             className={styles.tip}
+            tabIndex={0}
           >
             <strong>{suggestion.slice(0, searchPhrase.length)}</strong>
             {suggestion.slice(searchPhrase.length)}
