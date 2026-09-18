@@ -1,25 +1,26 @@
 import React, { useContext, useCallback } from 'react';
-import { css } from 'glamor';
 import {
-  getCurrentRouteHelper, useTheme, RouteContext, ITEMS_PER_LOAD, UIEvents,
+  getCurrentRouteHelper, RouteContext, ITEMS_PER_LOAD, UIEvents,
 } from '@shopgate/engage/core';
+import { ProductGrid } from '@shopgate/engage/product/components';
 import { ViewContext } from '@shopgate/engage/components/View';
+import { makeStyles } from '@shopgate/engage/styles';
 import { ResultContext } from '../Provider/context';
 
-const styles = {
-  products: css({
+const useStyles = makeStyles()(() => ({
+  products: {
     '&& [data-test-id="productGrid"]': {
       marginTop: 0,
       paddingTop: 16,
     },
-  }),
-};
+  },
+}));
 
 /**
  * @returns {JSX.Element}
  */
 const SearchSuggestionsResult = () => {
-  const { ProductGrid } = useTheme();
+  const { classes } = useStyles();
   const {
     totalProductCount, products, hash, contentRef, getProducts,
   } = useContext(ResultContext);
@@ -30,7 +31,7 @@ const SearchSuggestionsResult = () => {
   }, []);
 
   return (
-    <div role="presentation" className={styles.products} onClick={productClick} tabIndex={-1}>
+    <div role="presentation" className={classes.products} onClick={productClick} tabIndex={-1}>
       <ViewContext.Consumer>
         {viewContext => (
           <ViewContext.Provider
