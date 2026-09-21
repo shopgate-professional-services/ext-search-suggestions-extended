@@ -8,7 +8,7 @@
     "url": "git@github.com:shopgate-professional-services/ext-search-suggestions-extended.git"
   },
   "devDependencies": {
-    "@shopgate/engage": ">=7.32.0-beta.19",
+    "@shopgate/engage": "^7.32.0-beta.19",
     "@shopgate/eslint-config": "^7.31.8",
     "eslint": "^8.57.1"
   },

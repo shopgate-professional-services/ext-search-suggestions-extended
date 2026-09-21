@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from 'react';
+import React, { useContext, useCallback, useMemo } from 'react';
 import {
   getCurrentRouteHelper, RouteContext, ITEMS_PER_LOAD, UIEvents,
 } from '@shopgate/engage/core';
@@ -24,34 +24,33 @@ const SearchSuggestionsResult = () => {
   const {
     totalProductCount, products, hash, contentRef, getProducts,
   } = useContext(ResultContext);
+  const viewContext = useContext(ViewContext);
 
   const productClick = useCallback(() => {
     // Default GMD theme search bar toggle
     UIEvents.emit('TOGGLE_SEARCH', false);
   }, []);
 
+  const viewContextValue = useMemo(() => ({
+    ...viewContext,
+    getContentRef: () => contentRef,
+  }), [viewContext, contentRef]);
+
+  const routeContextValue = useMemo(() => getCurrentRouteHelper() || {}, []);
+
   return (
     <div role="presentation" className={classes.products} onClick={productClick} tabIndex={-1}>
-      <ViewContext.Consumer>
-        {viewContext => (
-          <ViewContext.Provider
-            value={{
-              ...viewContext,
-              getContentRef: () => contentRef,
-            }}
-          >
-            <RouteContext.Provider value={getCurrentRouteHelper() || {}}>
-              <ProductGrid
-                handleGetProducts={getProducts}
-                products={products}
-                totalProductCount={totalProductCount}
-                requestHash={hash}
-                infiniteLoad={totalProductCount ? totalProductCount > ITEMS_PER_LOAD : true}
-              />
-            </RouteContext.Provider>
-          </ViewContext.Provider>
-        )}
-      </ViewContext.Consumer>
+      <ViewContext.Provider value={viewContextValue}>
+        <RouteContext.Provider value={routeContextValue}>
+          <ProductGrid
+            handleGetProducts={getProducts}
+            products={products}
+            totalProductCount={totalProductCount}
+            requestHash={hash}
+            infiniteLoad={totalProductCount ? totalProductCount > ITEMS_PER_LOAD : true}
+          />
+        </RouteContext.Provider>
+      </ViewContext.Provider>
     </div>
   );
 };

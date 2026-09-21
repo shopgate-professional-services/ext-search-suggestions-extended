@@ -4,7 +4,9 @@ import { Button } from '@shopgate/engage/components/v2';
 import { makeStyles } from '@shopgate/engage/styles';
 import { ResultContext } from '../Provider/context';
 import Highlights from '../Highlights';
-import { layout } from '../../../../config';
+import config from '../../../../config.json';
+
+const { layout } = config;
 
 const {
   showResultCount = true,
