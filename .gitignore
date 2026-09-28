@@ -65,3 +65,6 @@ extension/coverage
 extension/node_modules
 extension/config.json
 frontend/config.json
+
+# Lockfiles (dependencies are host-provided, no real install)
+package-lock.json

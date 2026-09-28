@@ -1,6 +1,5 @@
-import { routeDidEnter$ } from '@shopgate/pwa-common/streams';
 import {
-  historyPush, main$, appDidStart$, mutableActions,
+  historyPush, main$, appDidStart$, mutableActions, routeDidEnter$,
 } from '@shopgate/engage/core';
 import { SEARCH_FILTER_PATTERN, SEARCH_PATH, fetchSearchSuggestions } from '@shopgate/engage/search';
 import { fetchSearchSuggestions as fetchSearchSuggestionsAction } from './action-creators';
