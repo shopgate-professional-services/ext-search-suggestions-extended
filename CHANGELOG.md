@@ -8,7 +8,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 - adopted the new engage theme: the search suggestions panel now sources its background and text colors from the theme (`theme.palette.background.default`, `theme.palette.text.primary`), fixing the missing panel background and the dark-on-dark text in dark mode
 - migrated styling from glamor to `@shopgate/engage/styles` (`makeStyles`/`useStyles`)
-- `@shopgate/engage` is now a `>=7.32.0-beta.19` peer & dev dependency (drops PWA 6 support)
+- `@shopgate/engage` is now a `>=7.32.0` peer & dev dependency (drops PWA 6 support)
+- `@shopgate/eslint-config` is now a `^7.32.0` dev dependency, and the frontend has an `npm run lint` script
 
 ## [1.5.0] - 2025-02-19
 ### Added
