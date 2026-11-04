@@ -1,34 +1,34 @@
 import React, { useContext, useEffect } from 'react';
-import { css } from 'glamor';
-import { themeConfig } from '@shopgate/engage';
 import { I18n, Link, Grid } from '@shopgate/engage/components';
 import { SEARCH_PATH } from '@shopgate/engage/search';
 import { broadcastLiveMessage } from '@shopgate/engage/a11y';
+import { makeStyles } from '@shopgate/engage/styles';
 import { ResultContext } from '../Provider/context';
 
-const styles = {
-  grid: css({
-    marginTop: themeConfig.variables.gap.small,
-    marginBottom: themeConfig.variables.gap.small,
-  }).toString(),
-  label: css({
+const useStyles = makeStyles()(() => ({
+  grid: {
+    marginTop: 8,
+    marginBottom: 8,
+  },
+  label: {
     paddingRight: '0.5rem',
-  }).toString(),
-  tips: css({
+  },
+  tips: {
     whiteSpace: 'nowrap',
     overflowX: 'scroll',
-  }).toString(),
-  tip: css({
-    ':not(:last-of-type)': {
+  },
+  tip: {
+    '&:not(:last-of-type)': {
       marginRight: '0.5rem',
     },
-  }).toString(),
-};
+  },
+}));
 
 /**
  * @returns {JSX.Element}
  */
 const SearchSuggestionsHighlights = () => {
+  const { classes } = useStyles();
   const { suggestions, searchPhrase, totalProductCount } = useContext(ResultContext);
 
   useEffect(() => {
@@ -40,17 +40,17 @@ const SearchSuggestionsHighlights = () => {
   }
 
   return (
-    <Grid className={styles.grid}>
-      <Grid.Item shrink={0} grow={0} className={styles.label}>
+    <Grid className={classes.grid}>
+      <Grid.Item shrink={0} grow={0} className={classes.label}>
         <I18n.Text string="sp.sse.search.highlights" />
       </Grid.Item>
-      <Grid.Item grow={1} className={styles.tips}>
+      <Grid.Item grow={1} className={classes.tips}>
         {suggestions.map(suggestion => (
           <Link
             key={suggestion}
             href={`${SEARCH_PATH}?s=${encodeURIComponent(suggestion)}`}
             tag="a"
-            className={styles.tip}
+            className={classes.tip}
             tabIndex={0}
           >
             <strong>{suggestion.slice(0, searchPhrase.length)}</strong>
