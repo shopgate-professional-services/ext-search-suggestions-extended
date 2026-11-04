@@ -1,5 +1,5 @@
 {
-  "version": "1.5.0",
+  "version": "2.0.0",
   "id": "@shopgate-project/search-suggestions-extended",
   "configuration": {
     "layout": {
@@ -11,7 +11,7 @@
         "showHighlights": true
       },
       "params": {
-        "type": "json" ,
+        "type": "json",
         "label": "Layout settings (show counter, filter button, etc)"
       }
     }
@@ -20,7 +20,10 @@
     {
       "id": "SearchSuggestions",
       "type": "portals",
-      "target": [ "search.suggestions", "persistent-search-bar.search.suggestions" ],
+      "target": [
+        "search.suggestions",
+        "persistent-search-bar.search.suggestions"
+      ],
       "path": "frontend/portals/SearchSuggestions"
     },
     {
@@ -59,5 +62,5 @@
       "id": "locale/it-IT"
     }
   ],
-  "steps": [ ]
+  "steps": []
 }
